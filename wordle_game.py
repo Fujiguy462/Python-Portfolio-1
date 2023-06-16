@@ -6,16 +6,8 @@
 #
 # This is a text based Wordle game using over 5700 5 letter words compiled by
 # Stanford University. It allows the user to guess up to 6 guesses returning the
-# correctly guessed characters in the correct places. It will also show the correct
-# misplaced characters at the end of the word for your tracking. See the example:
-# Enter guess #1: again
-# Incorrect guess a____ [n]
-# Enter Guess #2: abend
-# Incorrect guess: a___d [e, n]
-# Enter Guess #3 : acned
-# Correct, Congratulations!
-#
-# Have fun!
+# correctly guessed characters in the correct places (In GREEN). It will also show the correct
+# misplaced characters (in YELLOW). Incorrect characters will leave a RED underscore.
 
 # Import required libraries Random, CSV Libraries
 from random import randint
