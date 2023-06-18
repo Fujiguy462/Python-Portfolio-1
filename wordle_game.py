@@ -18,6 +18,8 @@ import os
 # Variable Declarations
 
 wordle_word = ""
+valid_guess_length = 5
+guess_valid = True
 
 # 5 Letter Word Dictionary
 # extracted from Stanford University sgb-word.txt
@@ -49,8 +51,8 @@ def wordle_word_choice():
 # This functions is used to take the incorrect result and display it to the screen 
 # with the correct colors and underscores so the player gets and appropriate hint
 # to continue playing the game successfully.
+#
 def display_current_results(wordle_word, guess):
-    print("my guess: " + guess)
     guess_list =""
 
     for letter in range(0, 5):
@@ -67,20 +69,39 @@ def display_current_results(wordle_word, guess):
             guess_list += new_letter
     print("Your current guess: " + guess_list)
 
-
+# Check qualification of guess
+# This function will check the guess for the proper lenght 
+# of 5 characters, if not valid will return False
+#
+def check_guess(guess):
+    if len(guess) != valid_guess_length:
+        return False
+        
+# Function to check if guess is a valid
+# word within the dictionary
+#
+def valid_dictionary(guess):
+    search_word = guess.lower()
+    with open('5_letter_words.csv', 'r') as search_list:
+        reader = csv.reader(search_list, delimiter=',')
+        for line in reader:
+            if search_word in line:
+                return True
+            
     
+    
+            
 
 # Game Play Module
 # 
 def game_play():
-
-
     # Define local variables
     guess = "" # this is your guess
     guess_list = "" # this is the resulting guess
     guess_number = 1 # this is the number of guesses left
-    valid_guess_length = 5
+    #valid_guess_length = 5
     wordle_word = wordle_word_choice() # Get a random 5 letter word
+    #guess_valid = True
     
     # Welome Screen Graphics
     os.system("cls")
@@ -97,24 +118,20 @@ def game_play():
     print("not in the word")
     print("")
     
-    print(wordle_word)
+    #print(wordle_word)
     # User guesses
     while guess_number < 7:
         # First check for valid number of letters in guess
         guess = input("Enter your guess " + str(guess_number)+ ": ")
         guess = guess.upper()
-        if len(guess) != valid_guess_length:
+        
+         
+        if check_guess(guess) == False:
             print("Invalid number of letters in guess, try again!")
         
-        # Next check to see if word is Valid in the Dictionary File
-        #elif:
-        #    with open('5_letter_words.csv') as f:
-        #        reader = csv.reader(f)
-        #        for row in reader:
-        #            if row != guess:
-        #                print()
-
-        # Check to see if the guess is correct
+        elif valid_dictionary(guess) != True:
+            print("Word not in dictionary, try again!")
+        
         else:
             if guess == wordle_word:
                 print("Congratulations, You WON!")
