@@ -1,4 +1,4 @@
-# Wordle game
+# Terminal-Wordle game
 #
 # Portfolio project #1 
 #
@@ -7,27 +7,28 @@
 # This is a text based Wordle game using over 5700 5 letter words compiled by
 # Stanford University. It allows the user to guess up to 6 guesses returning the
 # correctly guessed characters in the correct places (In GREEN). It will also show the correct
-# misplaced characters (in YELLOW). Incorrect characters will leave a RED underscore.
+# misplaced characters (in YELLOW). Incorrect characters will leave a RED letter.
 
 # Import required libraries Random, CSV Libraries
 from random import randint
 import csv
 from colorama import Fore
-import os
+import os 
 
 # Variable Declarations
 
 wordle_word = ""
 valid_guess_length = 5
 guess_valid = True
+guess = "" # this is your guess
+guess_list = "" # this is the resulting guess
+guess_number = 1 # this is the number of guesses left
 
 # 5 Letter Word Dictionary
 # extracted from Stanford University sgb-word.txt
 # and is saved in the directory as 5_letter_words.csv
 
-
 # Game Functions
-
 
 # RANDOM WORD GENERATOR
 #
@@ -49,7 +50,7 @@ def wordle_word_choice():
 
 # Display Current Results
 # This functions is used to take the incorrect result and display it to the screen 
-# with the correct colors and underscores so the player gets and appropriate hint
+# with the correct colors and so the player gets and appropriate hint
 # to continue playing the game successfully.
 #
 def display_current_results(wordle_word, guess):
@@ -61,11 +62,10 @@ def display_current_results(wordle_word, guess):
                 new_letter = (Fore.YELLOW + (str(guess[letter])) + Fore.WHITE)
                 guess_list += new_letter
             else:
-                # guess[letter] == wordle_word[letter]:
                 new_letter = (Fore.GREEN + (str(guess[letter])) + Fore.WHITE)
                 guess_list += new_letter
         else:
-            new_letter = (Fore.RED + "_" + Fore.WHITE)
+            new_letter = (Fore.RED + (str(guess[letter])) + Fore.WHITE)
             guess_list += new_letter
     print("Your current guess: " + guess_list)
 
@@ -96,13 +96,10 @@ def valid_dictionary(guess):
 # 
 def game_play():
     # Define local variables
-    guess = "" # this is your guess
-    guess_list = "" # this is the resulting guess
-    guess_number = 1 # this is the number of guesses left
-    #valid_guess_length = 5
+    guess_number = 1 # this is the number of guesses used
+
     wordle_word = wordle_word_choice() # Get a random 5 letter word
-    #guess_valid = True
-    
+   
     # Welome Screen Graphics
     os.system("cls")
     print("")
@@ -149,10 +146,7 @@ def game_play():
         game_play()
 
 
-         
-
-
-# testing Area 
+# Start the game 
 game_play()
 
 
